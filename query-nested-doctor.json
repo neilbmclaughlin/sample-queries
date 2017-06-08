@@ -1,0 +1,40 @@
+{
+  "size": 8,
+  "explain": true,
+  "_source": [ "name", "address", "doctors" ],
+  "query" : {
+    "bool": {
+      "should": {
+        "nested": {
+          "path": "doctors",
+          "query":   {
+            "bool": {
+              "should": [
+                {
+                  "common": {
+                    "doctors.name": {
+                      "query": "andrew smith",
+                      "cutoff_frequency": 0.000001
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "inner_hits": {
+            "highlight": {
+              "fields": {
+                "doctors.name": {}
+              }
+            }
+          }
+        }
+        }
+    }
+  },
+  "highlight" : {
+    "fields" : {
+      "doctors" : {}
+    }
+  }
+}
