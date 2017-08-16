@@ -1,0 +1,476 @@
+{
+  "pipeline" :
+  {
+    "description": "_description",
+    "processors": [
+      {
+        "remove" : {
+          "field": "services"
+        }
+      },
+      {
+        "remove" : {
+          "field": "facilities"
+        }
+      },
+      {
+        "set" : {
+          "field": "alternativeName",
+          "value": "{{address.addressLines.1}}"
+        }
+      },
+      {
+        "foreach" : {
+          "field" : "doctors",
+          "processor" : {
+            "set" : {
+              "field" : "_ingest._value",
+              "value" : "{\"name\": \"{{_ingest._value}}\"}"
+            }
+          }
+        }
+      },
+      {
+        "foreach" : {
+          "field" : "doctors",
+          "processor" : {
+            "json" : {
+              "field" : "_ingest._value",
+              "target_field" : "_ingest._value"
+            }
+          }
+        }
+      },
+      {
+        "script": {
+          "lang": "painless",
+          "inline": "ctx.mondayOpen = (Integer.parseInt(ctx.openingTimes.reception.monday[0].opens.substring(0,2)) * 60) + Integer.parseInt(ctx.openingTimes.reception.monday[0].opens.substring(3,5))",
+          "params": {
+            "param_c": 10
+          }
+        }
+      }
+    ]
+  },
+  "docs": [
+    {
+      "_index": "index",
+      "_type": "type",
+      "_id": "choicesId",
+      "_source": {
+        "_id": 36798,
+        "choicesId": 36798,
+        "syndicationId": 3028,
+        "name": "The Densham Surgery",
+        "displayName": "The Densham Surgery",
+        "odsCode": "A81001",
+        "address": {
+          "addressLines": [
+            "Health Centre",
+            "Lawson Street",
+            "Stockton On Tees",
+            "Cleveland"
+          ],
+          "postcode": "TS18 1HU"
+        },
+        "location": {
+          "type": "Point",
+          "coordinates": [
+            -1.31897032260895,
+            54.5616264343262
+          ]
+        },
+        "contact": {
+          "website": "http://www.williamsoliver.me.uk",
+          "telephone": "01642 606490",
+          "fax": "01642 618112"
+        },
+        "openingTimes": {
+          "reception": {
+            "sunday": [],
+            "monday": [
+              {
+                "opens": "08:30",
+                "closes": "18:00"
+              }
+            ],
+            "tuesday": [
+              {
+                "opens": "08:30",
+                "closes": "18:00"
+              }
+            ],
+            "wednesday": [
+              {
+                "opens": "08:30",
+                "closes": "18:00"
+              }
+            ],
+            "thursday": [
+              {
+                "opens": "08:30",
+                "closes": "18:00"
+              }
+            ],
+            "friday": [
+              {
+                "opens": "08:30",
+                "closes": "18:00"
+              }
+            ],
+            "saturday": []
+          },
+          "surgery": {
+            "sunday": [],
+            "monday": [
+              {
+                "opens": "08:30",
+                "closes": "18:00"
+              }
+            ],
+            "tuesday": [
+              {
+                "opens": "08:30",
+                "closes": "18:00"
+              }
+            ],
+            "wednesday": [
+              {
+                "opens": "08:30",
+                "closes": "18:00"
+              }
+            ],
+            "thursday": [
+              {
+                "opens": "08:30",
+                "closes": "18:00"
+              }
+            ],
+            "friday": [
+              {
+                "opens": "08:30",
+                "closes": "18:00"
+              }
+            ],
+            "saturday": []
+          }
+        },
+        "gpCounts": {
+          "male": 1,
+          "female": 1
+        },
+        "doctors": [
+          "Dr Gillian Oliver",
+          "Dr Stephen Richard Williams"
+        ],
+        "acceptingNewPatients": true,
+        "facilities": {
+          "parking": [
+            {
+              "name": "Car Parking",
+              "exists": "Yes"
+            },
+            {
+              "name": "Cycle parking",
+              "exists": "NotSpecified"
+            },
+            {
+              "name": "Disabled parking",
+              "exists": "NotSpecified"
+            }
+          ],
+          "accessibility": [
+            {
+              "name": "Wheelchair access",
+              "exists": "Yes"
+            },
+            {
+              "name": "Disabled WC",
+              "exists": "Yes"
+            },
+            {
+              "name": "Step free access",
+              "exists": "Yes"
+            },
+            {
+              "name": "Braille translation service",
+              "exists": "NotSpecified"
+            },
+            {
+              "name": "Disabled parking",
+              "exists": "NotSpecified"
+            },
+            {
+              "name": "Induction loop",
+              "exists": "NotSpecified"
+            },
+            {
+              "name": "RNID typetalk",
+              "exists": "NotSpecified"
+            },
+            {
+              "name": "Signing service available",
+              "exists": "NotSpecified"
+            }
+          ]
+        },
+        "services": {
+          "epsEnabled": true,
+          "entries": [
+            {
+              "title": "Asthma Clinic",
+              "code": "SRV0280",
+              "availabilityTimes": "",
+              "introduction": "",
+              "gpReferralRequired": false,
+              "deliverer": "The Densham Surgery"
+            },
+            {
+              "title": "Child health and development",
+              "code": "SRV0309",
+              "availabilityTimes": "",
+              "introduction": "",
+              "gpReferralRequired": false,
+              "deliverer": "The Densham Surgery"
+            },
+            {
+              "title": "COPD clinic with spirometry",
+              "code": "SRV0284",
+              "availabilityTimes": "",
+              "introduction": "",
+              "gpReferralRequired": false,
+              "deliverer": "The Densham Surgery"
+            },
+            {
+              "title": "Long-Acting Reversible Contraception (LARC - eg IUD or implant)",
+              "code": "SRV0294",
+              "availabilityTimes": "",
+              "introduction": "",
+              "gpReferralRequired": false,
+              "deliverer": "The Densham Surgery"
+            },
+            {
+              "title": "Minor surgery (e.g. removal of moles and skin lesions) - provided in-house",
+              "code": "SRV0298",
+              "availabilityTimes": "",
+              "introduction": "Practice Offer Cryotherapy and joint injections",
+              "gpReferralRequired": false,
+              "deliverer": "The Densham Surgery"
+            },
+            {
+              "title": "Learning disability health check",
+              "code": "SRV0492",
+              "availabilityTimes": "",
+              "introduction": "",
+              "gpReferralRequired": false,
+              "deliverer": "The Densham Surgery"
+            }
+          ]
+        },
+        "onlineServices": {
+          "appointments": {
+            "supplier": "TPP",
+            "url": "https://systmonline.tpp-uk.com/Login?PracticeId=A81001"
+          },
+          "repeatPrescriptions": {
+            "supplier": "TPP",
+            "url": "https://systmonline.tpp-uk.com/Login?PracticeId=A81001"
+          },
+          "codedRecords": {
+            "supplier": "TPP",
+            "url": "https://systmonline.tpp-uk.com/Login?PracticeId=A81001"
+          }
+        }
+      }
+    },
+    {
+      "_index": "index",
+      "_type": "type",
+      "_id": "choicesId",
+      "_source": {
+        "_id": 40565,
+        "choicesId": 40565,
+        "syndicationId": 2915,
+        "name": "Blackfriars",
+        "displayName": "Blackfriars",
+        "odsCode": "Y02622",
+        "address": {
+          "addressLines": [
+            "138 Chapel Street",
+            "Salford",
+            "England - Uk"
+          ],
+          "postcode": "M3 6AF"
+        },
+        "location": {
+          "type": "Point",
+          "coordinates": [
+            -2.25422954559326,
+            53.4841384887695
+          ]
+        },
+        "contact": {
+          "telephone": "0161 819 4790",
+          "fax": "0161 819 4791"
+        },
+        "openingTimes": {
+          "reception": {
+            "sunday": [],
+            "monday": [
+              {
+                "opens": "08:00",
+                "closes": "20:30"
+              }
+            ],
+            "tuesday": [
+              {
+                "opens": "08:00",
+                "closes": "19:30"
+              }
+            ],
+            "wednesday": [
+              {
+                "opens": "08:00",
+                "closes": "20:30"
+              }
+            ],
+            "thursday": [
+              {
+                "opens": "08:00",
+                "closes": "18:30"
+              }
+            ],
+            "friday": [
+              {
+                "opens": "08:00",
+                "closes": "18:30"
+              }
+            ],
+            "saturday": []
+          },
+          "surgery": {
+            "sunday": [],
+            "monday": [
+              {
+                "opens": "08:00",
+                "closes": "19:30"
+              }
+            ],
+            "tuesday": [
+              {
+                "opens": "08:00",
+                "closes": "19:30"
+              }
+            ],
+            "wednesday": [
+              {
+                "opens": "08:00",
+                "closes": "18:30"
+              }
+            ],
+            "thursday": [
+              {
+                "opens": "08:00",
+                "closes": "18:30"
+              }
+            ],
+            "friday": [
+              {
+                "opens": "08:00",
+                "closes": "18:30"
+              }
+            ],
+            "saturday": []
+          }
+        },
+        "gpCounts": {
+          "male": 1,
+          "female": 1
+        },
+        "doctors": [
+          "Dr. Babar Farooq",
+          "Dr Kish Iqbal"
+        ],
+        "acceptingNewPatients": true,
+        "facilities": {
+          "parking": [
+            {
+              "name": "Car Parking",
+              "exists": "Yes"
+            },
+            {
+              "name": "Disabled parking",
+              "exists": "NotSpecified"
+            },
+            {
+              "name": "Cycle parking",
+              "exists": "NotSpecified"
+            }
+          ],
+          "accessibility": [
+            {
+              "name": "Braille translation service",
+              "exists": "NotSpecified"
+            },
+            {
+              "name": "Disabled parking",
+              "exists": "Yes"
+            },
+            {
+              "name": "Disabled WC",
+              "exists": "Yes"
+            },
+            {
+              "name": "Induction loop",
+              "exists": "Yes"
+            },
+            {
+              "name": "RNID typetalk",
+              "exists": "NotSpecified"
+            },
+            {
+              "name": "Signing service available",
+              "exists": "NotSpecified"
+            },
+            {
+              "name": "Step free access",
+              "exists": "Yes"
+            },
+            {
+              "name": "Wheelchair access",
+              "exists": "Yes"
+            }
+          ]
+        },
+        "services": {
+          "epsEnabled": true,
+          "moreInformation": "NHS UK 0845 46 47",
+          "entries": [
+            {
+              "title": "Learning disability health check",
+              "code": "SRV0492",
+              "availabilityTimes": "",
+              "introduction": "",
+              "gpReferralRequired": false,
+              "deliverer": "Blackfriars"
+            }
+          ]
+        },
+        "onlineServices": {
+          "appointments": {
+            "supplier": "EMIS",
+            "url": "https://patient.emisaccess.co.uk/appointments/available"
+          },
+          "repeatPrescriptions": {
+            "supplier": "EMIS",
+            "url": "https://patient.emisaccess.co.uk/prescriptions/request"
+          },
+          "codedRecords": {
+            "supplier": "EMIS",
+            "url": "https://patient.emisaccess.co.uk/medical-record"
+          }
+        }
+      }
+    }
+  ]
+}

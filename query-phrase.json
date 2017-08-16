@@ -1,7 +1,7 @@
 {
   "size": 30,
   "explain": false,
-  "_source": [ "name", "address", "doctors" ],
+  "_source": [ "name", "address", "doctors", "openingTimes" ],
   "query" : { 
     "bool": {
       "must": {

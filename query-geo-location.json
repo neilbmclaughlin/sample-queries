@@ -1,12 +1,15 @@
-{
+{ 
+  "size": 30,
   "query": {
     "bool": {
-      "must" : {
-        "match_all" : {}
-      },
+      "should" : [
+        { "match_phrase": { "name": "" }},
+        { "match_phrase": { "alternativeName": "" }}
+      ],
+      "minimum_should_match": "1",
       "filter": {
         "geo_distance": {
-          "distance": "1km", 
+          "distance": "25mi", 
           "location.coordinates": { 
             "lon": -1.46519099452929,
             "lat": 54.0095586395326
@@ -23,7 +26,7 @@
           "lat": 54.0095586395326
         },
         "order":         "asc",
-        "unit":          "km",
+        "unit":          "mi",
         "distance_type": "plane"
       }
     }
