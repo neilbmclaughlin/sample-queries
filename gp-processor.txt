@@ -1,0 +1,20 @@
+int getMinutesOffset(int dayCount, String time) {
+  return 
+     (1440 * dayCount) +
+     (Integer.parseInt(time.substring(0,2)) * 60) +
+     Integer.parseInt(time.substring(3,5));
+}
+
+String[] days = new String[] { 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday' } ;
+Map openingTimes = [:];
+for(int d; d < days.length; d++) {
+  String day = days[d];
+  ArrayList sessions = [];
+  for(int i; i < ctx.openingTimes.reception[day].length; i++) {
+    int opens = getMinutesOffset(d, ctx.openingTimes.reception[day][i].opens);
+    int closes = getMinutesOffset(d, ctx.openingTimes.reception[day][i].closes);
+    sessions.add([ 'opens': opens, 'closes': closes ] );
+  }
+  openingTimes.put(day, sessions);
+}
+ctx['openingTimes2'] = openingTimes;
