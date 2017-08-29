@@ -1,0 +1,32 @@
+int getMinutesOffset(int dayCount, String time) {
+  return 
+     (1440 * dayCount) +
+     (Integer.parseInt(time.substring(0,2)) * 60) +
+     Integer.parseInt(time.substring(3,5));
+}
+
+String[] days = new String[] { 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday' } ;
+ArrayList openingTimes = [];
+if (ctx.openingTimes != null && ctx.openingTimes.general != null) {
+  for (int d; d < days.length; d++) {
+    String day = days[d];
+    for (int i; i < ctx.openingTimes.general[day].length; i++) {
+      int opens = getMinutesOffset(d, ctx.openingTimes.general[day][i].opens);
+      int closes = getMinutesOffset(d, ctx.openingTimes.general[day][i].closes);
+      openingTimes.add([ 'opens': opens, 'closes': closes ] );
+    }
+  }
+}
+ctx['openingTimesAsOffset'] = openingTimes;
+
+ArrayList alterations = [];
+if (ctx.openingTimes != null && ctx.openingTimes.alterations != null) {
+  for (e in ctx.openingTimes.alterations.entrySet()) {
+    for (int i; i < e.value.length; i++) {
+      int opens = getMinutesOffset(0, e.value[i].opens);
+      int closes = getMinutesOffset(0, e.value[i].closes);
+      alterations.add([ 'date': e.key, 'opens': opens, 'closes': closes ] );
+    }
+  }
+}
+ctx['openingTimesAlterationsAsOffset'] = alterations;

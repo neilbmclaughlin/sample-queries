@@ -1,0 +1,244 @@
+{
+  "pipeline" :
+  {
+    "description": "_description",
+    "processors": [
+      {
+        "script": {
+          "lang": "painless",
+          "inline": "int getMinutesOffset(int dayCount, String time) { return (1440 * dayCount) + (Integer.parseInt(time.substring(0,2)) * 60) + Integer.parseInt(time.substring(3,5)); } String[] days = new String[] { 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday' } ; ArrayList openingTimes = []; if (ctx.openingTimes != null && ctx.openingTimes.general != null) { for (int d; d < days.length; d++) { String day = days[d]; for (int i; i < ctx.openingTimes.general[day].length; i++) { int opens = getMinutesOffset(d, ctx.openingTimes.general[day][i].opens); int closes = getMinutesOffset(d, ctx.openingTimes.general[day][i].closes); openingTimes.add([ 'opens': opens, 'closes': closes ] ); } } } ctx['openingTimesAsOffset'] = openingTimes; ArrayList alterations = []; if (ctx.openingTimes != null && ctx.openingTimes.alterations != null) { for (e in ctx.openingTimes.alterations.entrySet()) { for (int i; i < e.value.length; i++) { int opens = getMinutesOffset(0, e.value[i].opens); int closes = getMinutesOffset(0, e.value[i].closes); alterations.add([ 'date': e.key, 'opens': opens, 'closes': closes ] ); } } } ctx['openingTimesAlterationsAsOffset'] = alterations;",
+          "params": {
+            "now": 10
+          }
+        }
+      }
+    ]
+  },
+  "docs": [
+    {
+      "_index": "index",
+      "_type": "type",
+      "_id": "identifier",
+      "_source": {
+        "identifierType": "Pharmacy Contract",
+        "openingTimes": {
+          "general": {
+            "monday": [
+              {
+                "opens": "08:30",
+                "closes": "18:00"
+              }
+            ],
+            "tuesday": [
+              {
+                "opens": "08:30",
+                "closes": "18:00"
+              }
+            ],
+            "wednesday": [
+              {
+                "opens": "08:30",
+                "closes": "18:00"
+              }
+            ],
+            "thursday": [
+              {
+                "opens": "08:30",
+                "closes": "18:00"
+              }
+            ],
+            "friday": [
+              {
+                "opens": "08:30",
+                "closes": "18:00"
+              }
+            ],
+            "saturday": [
+              {
+                "opens": "08:30",
+                "closes": "17:30"
+              }
+            ],
+            "sunday": []
+          },
+          "alterations": {
+            "2017-01-02": [
+              {
+                "opens": "08:30",
+                "closes": "18:00"
+              }
+            ]
+          }
+        },
+        "outOfHours": "",
+        "hasEps": true,
+        "address": {
+          "line1": "3 West Street",
+          "line2": null,
+          "line3": null,
+          "city": "Bourne",
+          "county": "Lincolnshire",
+          "postcode": "PE10 9NB"
+        },
+        "contacts": {
+          "website": "",
+          "additionalContacts": [],
+          "telephoneNumber": "01778422007",
+          "isNonGeographicPhoneNumber": false,
+          "phoneChargeMethod": "unknown method",
+          "phoneChargeAmount": null,
+          "telephoneExtension": null,
+          "fax": "01778421433",
+          "email": ""
+        },
+        "directionsInformation": null,
+        "externalProfileUrl": null,
+        "identifier": "FYY76",
+        "name": "Boots",
+        "organisationType": "Pharmacy",
+        "parkingInformation": null,
+        "provider": "Leicestershire And Lincolnshire Area Team",
+        "summary": "<p><strong>For Boots stores special opening hours, e.g. Christmas and Bank Holidays, please click on this link to Boots.com for more detail...   <a href=\"http://www.boots.com/webapp/wcs/stores/servlet/StoreLocator?requiredAction=displayStoreLookupPage&displayView=StoreLookupView&langId=-1&storeId=10052&catalogId=11051&langId=-1&storeId=10052&catalogId=11051\">Boots store locator</a></strong></p>",
+        "links": [
+          {
+            "rel": "NoFollow",
+            "href": "http://statse.webtrendslive.com/dcss9yzisf9xjyg74mgbihg8p_8d2u/njs.gif?dcsuri=%2Fexternalservices%2Forganisationapi%2Forganisations%2FFYY76&amp;wt.js=no&amp;wt.cg_n=InwardAPI&amp;wt.z_SyndicationDomain={YourDomainName}",
+            "name": "Tracking pixel"
+          },
+          {
+            "rel": "Self",
+            "href": "http://www.nhs.uk/externalservices/organisationapi/organisations/FYY76",
+            "name": "Link to self"
+          },
+          {
+            "rel": "Alternate",
+            "href": "http://www.nhs.uk/services/pharmacies/overview/defaultview.aspx?id=FYY76",
+            "name": "NHS Choices profile"
+          }
+        ],
+        "location": {
+          "type": "Point",
+          "coordinates": [
+            -0.3789253830909729,
+            52.76786422729492
+          ]
+        }
+      }
+    },
+    {
+      "_index": "index",
+      "_type": "type",
+      "_id": "identifier",
+      "_source": {
+        "identifierType": "Pharmacy Contract",
+        "openingTimes": {
+          "general": {
+            "monday": [
+              {
+                "opens": "09:00",
+                "closes": "18:30"
+              }
+            ],
+            "tuesday": [
+              {
+                "opens": "09:00",
+                "closes": "18:30"
+              }
+            ],
+            "wednesday": [
+              {
+                "opens": "09:00",
+                "closes": "18:30"
+              }
+            ],
+            "thursday": [
+              {
+                "opens": "09:00",
+                "closes": "18:30"
+              }
+            ],
+            "friday": [
+              {
+                "opens": "09:00",
+                "closes": "18:30"
+              }
+            ],
+            "saturday": [
+              {
+                "opens": "09:00",
+                "closes": "18:00"
+              }
+            ],
+            "sunday": [
+              {
+                "opens": "10:00",
+                "closes": "16:00"
+              }
+            ]
+          },
+          "alterations": {
+            "2017-01-02": [
+              {
+                "opens": "10:00",
+                "closes": "17:00"
+              }
+            ]
+          }
+        },
+        "outOfHours": "",
+        "hasEps": true,
+        "address": {
+          "line1": "32-34 THE BROADWAY",
+          "line2": null,
+          "line3": null,
+          "city": "London",
+          "county": "Middlesex",
+          "postcode": "NW7 3LH"
+        },
+        "contacts": {
+          "website": "",
+          "additionalContacts": [],
+          "telephoneNumber": "02089591282",
+          "isNonGeographicPhoneNumber": false,
+          "phoneChargeMethod": "unknown method",
+          "phoneChargeAmount": null,
+          "telephoneExtension": null,
+          "fax": "02082011660",
+          "email": ""
+        },
+        "directionsInformation": null,
+        "externalProfileUrl": null,
+        "identifier": "FYY65",
+        "name": "Boots",
+        "organisationType": "Pharmacy",
+        "parkingInformation": null,
+        "provider": "London Area Team",
+        "summary": "<p><strong>For Boots stores special opening hours, e.g. Christmas and Bank Holidays, please click on this link to Boots.com for more detail...   <a href=\"http://www.boots.com/webapp/wcs/stores/servlet/StoreLocator?requiredAction=displayStoreLookupPage&displayView=StoreLookupView&langId=-1&storeId=10052&catalogId=11051&langId=-1&storeId=10052&catalogId=11051\">Boots store locator</a></strong></p>",
+        "links": [
+          {
+            "rel": "NoFollow",
+            "href": "http://statse.webtrendslive.com/dcss9yzisf9xjyg74mgbihg8p_8d2u/njs.gif?dcsuri=%2Fexternalservices%2Forganisationapi%2Forganisations%2FFYY65&amp;wt.js=no&amp;wt.cg_n=InwardAPI&amp;wt.z_SyndicationDomain={YourDomainName}",
+            "name": "Tracking pixel"
+          },
+          {
+            "rel": "Self",
+            "href": "http://www.nhs.uk/externalservices/organisationapi/organisations/FYY65",
+            "name": "Link to self"
+          },
+          {
+            "rel": "Alternate",
+            "href": "http://www.nhs.uk/services/pharmacies/overview/defaultview.aspx?id=FYY65",
+            "name": "NHS Choices profile"
+          }
+        ],
+        "location": {
+          "type": "Point",
+          "coordinates": [
+            -0.2466244399547577,
+            51.61461639404297
+          ]
+        }
+      }
+    } 
+  ]
+}

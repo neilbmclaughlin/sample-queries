@@ -1,0 +1,36 @@
+{
+  "query": {
+    "bool": {
+      "must": [
+        { 
+          "nested": {
+            "path": "openingTimesAsOffset",
+            "query": {
+              "bool": {
+                "filter": [
+                  { "range": { "openingTimesAsOffset.opens": { "lte": 600} } },
+                  { "range": { "openingTimesAsOffset.closes": { "gte": 600} } }
+                ]
+              }
+            }
+          }
+        }
+      ],
+      "must_not": [
+        { 
+          "nested": {
+            "path": "openingTimesAlterationsAsOffset",
+            "query": {
+              "bool": {
+                "filter": [
+                  { "range": { "openingTimesAlterationsAsOffset.date": { "lte": "2017-12-25"} } },
+                  { "range": { "openingTimesAlterationsAsOffset.date": { "gte": "2017-12-25"} } }
+                ]
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

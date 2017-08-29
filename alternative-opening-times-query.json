@@ -1,0 +1,17 @@
+{
+  "query": {
+    "nested": {
+      "path": "openingTimesAlterationsAsOffset",
+      "query": {
+        "bool": {
+          "filter": [
+            { "range": { "openingTimesAlterationsAsOffset.date": { "lte": "2017-12-25"} } },
+            { "range": { "openingTimesAlterationsAsOffset.date": { "gte": "2017-12-25"} } },
+            { "range": { "openingTimesAlterationsAsOffset.opens": { "lte": 600} } },
+            { "range": { "openingTimesAlterationsAsOffset.closes": { "gte": 600} } }
+          ]
+        }
+      }
+    }
+  }
+}
