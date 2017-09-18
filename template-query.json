@@ -1,0 +1,12 @@
+{
+    "file": "get-nearby-open-pharmacies", 
+    "params": {
+      "date": "2017-12-25",
+      "minutes": "1380",
+      "distance": "15mi",
+      "location": {
+        "lat": "54.0095586395326",
+        "lon": "-1.46519099452929"
+      }
+    }
+}
