@@ -1,0 +1,21 @@
+{
+  "size": 30,
+  "explain": true,
+  "query": {
+    "bool": {
+      "should": [
+        {
+          "multi_match": {
+              "query": "streat lane surgery",
+              "fields": [
+                "name.precise^2",
+                "alternativeName.precise^2",
+                "name.trigram",
+                "alternativeName.trigram"
+              ]
+          }
+        }
+      ]
+    }
+  }
+}
