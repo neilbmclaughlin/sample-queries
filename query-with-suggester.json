@@ -1,0 +1,26 @@
+{
+  "size": 30,
+  "explain": true,
+  "query": {
+    "bool": {
+      "should": [
+        {
+          "multi_match": {
+              "query": "alwodley surgery",
+              "fields": [
+                "name.precise"
+              ]
+          }
+        }
+      ]
+    }
+  },
+  "suggest" : {
+    "name-suggestion" : {
+      "text" : "alwodley surgery",
+      "term" : {
+        "field" : "name.precise"
+      }
+    }
+  }
+}
