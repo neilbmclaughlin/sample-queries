@@ -1,0 +1,59 @@
+{
+  "size": 30,
+  "explain": true,
+  "query": {
+    "bool": {
+      "should": [
+        {
+          "multi_match": {
+            "query": "alwodley surgey",
+            "fields": [
+              "name.precise"
+              ]
+          }
+        }
+      ]
+    }
+  },
+  "suggest" : {
+    "name-phrase-suggestion" : {
+      "text" : "surgey alwodley",
+      "phrase": {
+        "field": "name.shingle",
+        "size": 10,
+        "gram_size": 3,
+        "confidence": 0,
+        "direct_generator": [
+          {
+            "field": "name.shingle",
+            "suggest_mode": "always"
+          },
+          {
+            "field" : "name.reverse",
+            "suggest_mode" : "always",
+            "pre_filter" : "reverse_analyzer",
+            "post_filter" : "reverse_analyzer"
+          }
+        ],
+        "collate": {
+          "query": {
+            "inline" : {
+              "multi_match": {
+                "query": "{{suggestion}}",
+                "fields": [
+                  "{{field_name}}"
+                  ]
+              }
+            }
+          },
+          "params": {"field_name" : "name.precise"},
+          "prune": true
+        },
+        "highlight": {
+          "pre_tag": "<em>",
+          "post_tag": "</em>"
+        }
+      }
+    }
+  }
+}

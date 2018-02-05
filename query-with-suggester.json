@@ -17,9 +17,9 @@
   },
   "suggest" : {
     "name-suggestion" : {
-      "text" : "alwodley surgery",
+      "text" : "alwodley surgey",
       "term" : {
-        "field" : "name.precise"
+        "field" : "name.shingle"
       }
     }
   }
